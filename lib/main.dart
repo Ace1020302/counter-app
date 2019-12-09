@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'screens/home_screen.dart';
 
 void main() => runApp(MyApp());
 
@@ -19,29 +20,9 @@ class MyApp extends StatelessWidget {
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
         primarySwatch: Colors.red,
+        
       ),
-      home: HomePage(),
-    );
-  }
-}
-
-class HomePage extends StatelessWidget {
-  int countersPresent = 4;
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Counters'),
-      ),
-      body: ListView.builder(
-        itemBuilder: (BuildContext context, int index) {
-          return ListTile(
-            title: Text('Counter ' + (index + 1).toString()),
-          );
-        },
-        itemCount: countersPresent,
-      ),
+      home: SafeArea(child: HomeScreen()),
     );
   }
 }
