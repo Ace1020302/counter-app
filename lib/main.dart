@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'screens/home_screen.dart';
+import 'screens/home_screen_2.dart';
 
 void main() => runApp(MyApp());
 
@@ -20,9 +20,8 @@ class MyApp extends StatelessWidget {
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
         primarySwatch: Colors.red,
-        
       ),
-      home: SafeArea(child: HomeScreen()),
+      home: HomeScreen(),
     );
   }
 }
