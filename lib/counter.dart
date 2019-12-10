@@ -2,5 +2,5 @@ class Counter {
   String name;
   int score;
 
-  Counter(this.name) {}
+  Counter(this.name, this.score);
 }
