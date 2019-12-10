@@ -33,26 +33,42 @@ class SessionWidgetState extends State<SessionWidget> {
           return Padding(
             padding: const EdgeInsets.all(16.0),
             child: Card(
-                child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
-              children: <Widget>[
-                Text(
-                  counter.name,
-                  style: TextStyle(fontSize: 20),
+              child: Container(
+                child: Column(
+                  children: <Widget>[
+                    Text(
+                      '${counter.name} Score: ${counter.score}',
+                      style: TextStyle(fontSize: 20),
+                    ),
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[
+                        FloatingActionButton(
+                          heroTag: 'btn1 index ${index}',
+                          mini: true,
+                          onPressed: () => setState(() {
+                            counter.score--;
+                          }),
+                          child: Icon(Icons.remove),
+                        ),
+                        FloatingActionButton(
+                          heroTag: 'btn2 index ${index}',
+                          mini: true,
+                          onPressed: () {
+                            setState(() {
+                              counter.score++;
+                            });
+                          },
+                          child: Icon(Icons.add),
+                        ),
+                      ],
+                    ),
+                  ],
                 ),
-                Text('Score ${counter.score}', style: TextStyle(fontSize: 20))
-              ],
-            )),
+              ),
+            ),
           );
         },
-      ),
-      floatingActionButton: FloatingActionButton(
-        onPressed: () {
-          setState(() {
-            counters[0].score++;
-          });
-        },
-        child: Icon(Icons.add),
       ),
     );
   }
