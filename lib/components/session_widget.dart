@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import '../session.dart';
 
 class SessionWidget extends StatefulWidget {
-  final Session session;
+  Session session;
 
   SessionWidget(this.session);
 
@@ -30,14 +30,29 @@ class SessionWidgetState extends State<SessionWidget> {
         itemCount: counters.length,
         itemBuilder: (BuildContext context, int index) {
           Counter counter = counters[index];
-          return Card(
-              child: Row(
-            children: <Widget>[
-              Text(counter.name),
-              Text('Score ${counter.score}')
-            ],
-          ));
+          return Padding(
+            padding: const EdgeInsets.all(16.0),
+            child: Card(
+                child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: <Widget>[
+                Text(
+                  counter.name,
+                  style: TextStyle(fontSize: 20),
+                ),
+                Text('Score ${counter.score}', style: TextStyle(fontSize: 20))
+              ],
+            )),
+          );
         },
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          setState(() {
+            counters[0].score++;
+          });
+        },
+        child: Icon(Icons.add),
       ),
     );
   }
