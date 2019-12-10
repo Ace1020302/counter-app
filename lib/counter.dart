@@ -1,6 +1,6 @@
 class Counter {
   String name;
-  int score;
+  int score = 1500;
 
-  Counter(this.name, this.score);
+  Counter(this.name);
 }
