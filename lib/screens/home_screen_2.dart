@@ -74,6 +74,24 @@ class HomeScreenState extends State<HomeScreen> {
           ],
         ),
       ),
+      floatingActionButton: FloatingActionButton(
+        child: Icon(Icons.add),
+        onPressed: () {
+          setState(() {
+            addItem();
+          });
+        },
+      ),
     );
+  }
+
+  void addItem() {
+    if (sessions == null || sessions.isEmpty) {
+      sessions.add(Session(
+          'Session ${1}', [Counter('Player 1', 0), Counter('Player 2', 0)]));
+    } else {
+      sessions.add(Session('Session ${sessions.length + 1}',
+          [Counter('Player 1', 0), Counter('Player 2', 0)]));
+    }
   }
 }
