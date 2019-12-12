@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'screens/home_screen_2.dart';
+import 'screens/home_screen.dart';
 
 void main() => runApp(MyApp());
 
@@ -19,7 +19,7 @@ class MyApp extends StatelessWidget {
         // or simply save your changes to "hot reload" in a Flutter IDE).
         // Notice that the counter didn't reset back to zero; the application
         // is not restarted.
-        primarySwatch: Colors.red,
+        primarySwatch: Colors.blue,
       ),
       home: HomeScreen(),
     );

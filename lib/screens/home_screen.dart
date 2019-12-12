@@ -1,44 +1,67 @@
+import 'package:counter_app/components/session_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
+import '../counter.dart';
+import '../session.dart';
+
+List<Session> sessions = [
+  Session('Session 1', [Counter('Player 1'), Counter('Player 2')]),
+  Session('Session 2', [Counter('Player 1'), Counter('Player 2')]),
+  Session('Session 3', [Counter('Player 1'), Counter('Player 2')]),
+  Session('Session 4', [Counter('Player 1'), Counter('Player 2')])
+];
+
+List<Session> archivedSessions = [];
+
 class HomeScreen extends StatefulWidget {
   @override
-  createState() => HomeScreenState();
+  State<StatefulWidget> createState() {
+    return HomeScreenState();
+  }
 }
 
+// Creates a List of sessions which will be clickable and maluable
 class HomeScreenState extends State<HomeScreen> {
-  List<String> items = <String>[];
-  List<String> archivedItems = <String>[];
+  // List<Counter> counters = [Counter('Player 1', 0), Counter('Player 2', 0)];
   @override
   Widget build(BuildContext context) {
     return DefaultTabController(
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          title: Text('Counter Sessions'),
-          bottom: TabBar(
-            tabs: <Widget>[Text('Sessions'), Text('Archieved')],
+          title: Text(
+            'Counter and Banking app',
+            textAlign: TextAlign.center,
           ),
+          bottom: TabBar(tabs: <Widget>[Text('Sessions'), Text('Archieved')]),
         ),
-        backgroundColor: Colors.grey[100],
+        //SessionWidget(sessions[0])
         body: TabBarView(
           children: <Widget>[
-            (items.length <= 0 || items == null)
+            (sessions.length <= 0 || sessions == null)
                 ? Center(
                     child: Text('Add a Session',
                         textAlign: TextAlign.center,
                         style: TextStyle(fontSize: 30)),
                   )
                 : ListView.separated(
-                    itemCount: items.length,
+                    itemCount: sessions.length,
                     itemBuilder: (BuildContext context, int index) => Slidable(
                       actionPane: SlidableDrawerActionPane(),
                       actionExtentRatio: 0.25,
                       child: ListTile(
-                        contentPadding: EdgeInsets.zero,
-                        title: Text(
-                          items[index],
-                          textAlign: TextAlign.center,
+                        title: Text(sessions[index].name),
+                        onLongPress: () {
+                          print('${sessions[index].name}');
+                        },
+                        onTap: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => SessionWidget(
+                              sessions[index],
+                            ),
+                          ),
                         ),
                       ),
                       secondaryActions: <Widget>[
@@ -47,9 +70,10 @@ class HomeScreenState extends State<HomeScreen> {
                           color: Colors.green,
                           icon: Icons.archive,
                           onTap: () {
-                            print('Archived ${items[index]}');
+                            print('Archived ${sessions[index].name}');
                             setState(() {
-                              archivedItems.add(items[index]);
+                              archivedSessions.add(sessions[index]);
+                              sessions.removeAt(index);
                             });
                           },
                         ),
@@ -59,9 +83,9 @@ class HomeScreenState extends State<HomeScreen> {
                           icon: Icons.delete,
                           onTap: () {
                             setState(() {
-                              items.removeAt(index);
+                              sessions.removeAt(index);
                             });
-                            print('Deleted ${items[index]}');
+                            print('Deleted ${sessions[index].name}');
                           },
                         ),
                       ],
@@ -73,21 +97,29 @@ class HomeScreenState extends State<HomeScreen> {
                       height: 0,
                     ),
                   ),
-            (archivedItems.length <= 0 || archivedItems == null)
+            (archivedSessions.length <= 0 || archivedSessions == null)
                 ? Center(
                     child: Text('No Archived Sessions',
                         textAlign: TextAlign.center,
                         style: TextStyle(fontSize: 30)),
                   )
                 : ListView.separated(
-                    itemCount: archivedItems.length,
+                    itemCount: archivedSessions.length,
                     itemBuilder: (BuildContext context, int index) => Slidable(
                       actionPane: SlidableDrawerActionPane(),
                       actionExtentRatio: 0.25,
                       child: ListTile(
+                        onTap: () => Navigator.push(
+                          context,
+                          MaterialPageRoute(
+                            builder: (context) => ArchivedSessionWidget(
+                              archivedSessions[index],
+                            ),
+                          ),
+                        ),
                         contentPadding: EdgeInsets.zero,
                         title: Text(
-                          archivedItems[index],
+                          archivedSessions[index].name,
                           textAlign: TextAlign.center,
                         ),
                       ),
@@ -98,16 +130,9 @@ class HomeScreenState extends State<HomeScreen> {
                           icon: Icons.delete,
                           onTap: () {
                             setState(() {
-                              archivedItems.removeAt(index);
-
-                              // Catchs error if items list has no more elements
-                              if (!(items.length <= 0 || items == null)) {
-                                var itemEquivlentIndex =
-                                    items.indexOf(archivedItems[index]);
-                                items.removeAt(itemEquivlentIndex);
-                              }
+                              archivedSessions.removeAt(index);
                             });
-                            print('Deleted ${archivedItems[index]}');
+                            print('Deleted ${archivedSessions[index]}');
                           },
                         ),
                       ],
@@ -134,24 +159,12 @@ class HomeScreenState extends State<HomeScreen> {
   }
 
   void addItem() {
-    if (items == null || items.isEmpty) {
-      items.add('Session ${1}');
+    if (sessions == null || sessions.isEmpty) {
+      sessions.add(
+          Session('Session ${1}', [Counter('Player 1'), Counter('Player 2')]));
     } else {
-      items.add('Session ${items.length + 1}');
+      sessions.add(Session('Session ${sessions.length + 1}',
+          [Counter('Player 1'), Counter('Player 2')]));
     }
-  }
-}
-
-class CloseAlertButton extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return RaisedButton(
-      color: Colors.grey,
-      textColor: Colors.white,
-      child: Text('Ok'),
-      onPressed: () {
-        Navigator.of(context).pop();
-      },
-    );
   }
 }
