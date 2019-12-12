@@ -30,38 +30,41 @@ class SessionWidgetState extends State<SessionWidget> {
         itemCount: counters.length,
         itemBuilder: (BuildContext context, int index) {
           Counter counter = counters[index];
+
           return Padding(
             padding: const EdgeInsets.all(16.0),
-            child: Card(
-              child: Container(
-                child: Column(
-                  children: <Widget>[
-                    Padding(
+            child: GestureDetector(
+                child: Card(
+                  child: Container(
+                    child: Padding(
                       padding: const EdgeInsets.all(8.0),
                       child: Text(
                         '${counter.name} Money: ${counter.score}',
                         style: TextStyle(fontSize: 20),
                       ),
                     ),
-                    //Bottom sheet, Modal Widget for changing.
-                    incrementsRow(index, counter, 1),
-                    incrementsRow(index, counter, 5),
-                    incrementsRow(index, counter, 10),
-                    incrementsRow(index, counter, 20),
-                    incrementsRow(index, counter, 50),
-                    incrementsRow(index, counter, 100),
-                    incrementsRow(index, counter, 500),
-                  ],
+                  ),
                 ),
-              ),
-            ),
+                onTap: () {
+                  showModalBottomSheet(
+                      builder: (BuildContext context) => Column(
+                            children: <Widget>[
+                              Text(
+                                '${counter.name} Money: ${counter.score}',
+                                style: TextStyle(fontSize: 20),
+                              ),
+                              customModal(index, counter),
+                            ],
+                          ),
+                      context: context);
+                }),
           );
         },
       ),
     );
   }
 
-  incrementsRow(int index, Counter counter, int value) {
+  Widget incrementsRow(int index, Counter counter, int value) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Row(
@@ -97,6 +100,18 @@ class SessionWidgetState extends State<SessionWidget> {
         ],
       ),
     );
+  }
+
+  Widget customModal(index, counter) {
+    return Column(children: <Widget>[
+      incrementsRow(index, counter, 500),
+      incrementsRow(index, counter, 100),
+      incrementsRow(index, counter, 50),
+      incrementsRow(index, counter, 20),
+      incrementsRow(index, counter, 10),
+      incrementsRow(index, counter, 5),
+      incrementsRow(index, counter, 1),
+    ]);
   }
 }
 

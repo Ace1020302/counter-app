@@ -30,11 +30,12 @@ class HomeScreenState extends State<HomeScreen> {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          title: Text(
-            'Counter and Banking app',
-            textAlign: TextAlign.center,
-          ),
-          bottom: TabBar(tabs: <Widget>[Text('Sessions'), Text('Archieved')]),
+          title: Text('Counter app',
+              textAlign: TextAlign.center, style: TextStyle(fontSize: 20)),
+          bottom: TabBar(tabs: <Widget>[
+            Text('Sessions', style: TextStyle(fontSize: 19)),
+            Text('Archieved', style: TextStyle(fontSize: 19))
+          ]),
         ),
         //SessionWidget(sessions[0])
         body: TabBarView(
