@@ -52,9 +52,12 @@ class HomeScreenState extends State<HomeScreen> {
                       actionPane: SlidableDrawerActionPane(),
                       actionExtentRatio: 0.25,
                       child: ListTile(
-                        title: Text(sessions[index].name),
+                        title: Text(
+                          sessions[index].name,
+                          textAlign: TextAlign.center,
+                        ),
                         onLongPress: () {
-                          print('${sessions[index].name}');
+                          customDialog(context, index);
                         },
                         onTap: () => Navigator.push(
                           context,
@@ -123,6 +126,9 @@ class HomeScreenState extends State<HomeScreen> {
                           archivedSessions[index].name,
                           textAlign: TextAlign.center,
                         ),
+                        onLongPress: () {
+                          customDialog(context, index);
+                        },
                       ),
                       secondaryActions: <Widget>[
                         IconSlideAction(
@@ -167,5 +173,43 @@ class HomeScreenState extends State<HomeScreen> {
       sessions.add(Session('Session ${sessions.length + 1}',
           [Counter('Player 1'), Counter('Player 2')]));
     }
+  }
+
+  void customDialog(BuildContext context, int index) {
+    String newName;
+    showDialog(
+      child: Dialog(
+        child: Container(
+          height: 170,
+          child: Form(
+            child: Column(
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.all(10.0),
+                  child: TextField(
+                    decoration: InputDecoration(
+                      labelText: 'Name Session:',
+                      labelStyle: TextStyle(color: Colors.black),
+                    ),
+                    onChanged: (String input) => (newName = input),
+                  ),
+                ),
+                RaisedButton(
+                  child: Text('Submit'),
+                  onPressed: () {
+                    setState(() {
+                      sessions[index].name = newName;
+                    });
+
+                    Navigator.of(context).pop();
+                  },
+                )
+              ],
+            ),
+          ),
+        ),
+      ),
+      context: context,
+    );
   }
 }

@@ -47,14 +47,19 @@ class SessionWidgetState extends State<SessionWidget> {
                 ),
                 onTap: () {
                   showModalBottomSheet(
-                      builder: (BuildContext context) => Column(
-                            children: <Widget>[
-                              Text(
-                                '${counter.name} Money: ${counter.score}',
-                                style: TextStyle(fontSize: 20),
-                              ),
-                              customModal(index, counter),
-                            ],
+                      builder: (BuildContext context) => StatefulBuilder(
+                            builder: (BuildContext context,
+                                StateSetter setModalState) {
+                              return Column(
+                                children: <Widget>[
+                                  Text(
+                                    '${counter.name} Money: ${counter.score}',
+                                    style: TextStyle(fontSize: 20),
+                                  ),
+                                  customModal(index, counter, setModalState),
+                                ],
+                              );
+                            },
                           ),
                       context: context);
                 }),
@@ -64,7 +69,8 @@ class SessionWidgetState extends State<SessionWidget> {
     );
   }
 
-  Widget incrementsRow(int index, Counter counter, int value) {
+  Widget incrementsRow(
+      int index, Counter counter, StateSetter setModalState, int value) {
     return Padding(
       padding: const EdgeInsets.all(8.0),
       child: Row(
@@ -73,9 +79,11 @@ class SessionWidgetState extends State<SessionWidget> {
           FloatingActionButton(
             heroTag: '-$value index $index',
             mini: true,
-            onPressed: () => setState(() {
+            onPressed: () {
               counter.score -= value;
-            }),
+              setModalState(() {});
+              setState(() {});
+            },
             child: Icon(Icons.remove),
           ),
           Container(
@@ -91,9 +99,9 @@ class SessionWidgetState extends State<SessionWidget> {
             heroTag: '$value index $index',
             mini: true,
             onPressed: () {
-              setState(() {
-                counter.score += value;
-              });
+              counter.score += value;
+              setModalState(() {});
+              setState(() {});
             },
             child: Icon(Icons.add),
           ),
@@ -102,15 +110,15 @@ class SessionWidgetState extends State<SessionWidget> {
     );
   }
 
-  Widget customModal(index, counter) {
+  Widget customModal(index, counter, setModalState) {
     return Column(children: <Widget>[
-      incrementsRow(index, counter, 500),
-      incrementsRow(index, counter, 100),
-      incrementsRow(index, counter, 50),
-      incrementsRow(index, counter, 20),
-      incrementsRow(index, counter, 10),
-      incrementsRow(index, counter, 5),
-      incrementsRow(index, counter, 1),
+      incrementsRow(index, counter, setModalState, 500),
+      incrementsRow(index, counter, setModalState, 100),
+      incrementsRow(index, counter, setModalState, 50),
+      incrementsRow(index, counter, setModalState, 20),
+      incrementsRow(index, counter, setModalState, 10),
+      incrementsRow(index, counter, setModalState, 5),
+      incrementsRow(index, counter, setModalState, 1),
     ]);
   }
 }
