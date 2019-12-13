@@ -34,7 +34,7 @@ class HomeScreenState extends State<HomeScreen> {
               textAlign: TextAlign.center, style: TextStyle(fontSize: 20)),
           bottom: TabBar(tabs: <Widget>[
             Text('Sessions', style: TextStyle(fontSize: 19)),
-            Text('Archieved', style: TextStyle(fontSize: 19))
+            Text('Archived', style: TextStyle(fontSize: 19))
           ]),
         ),
         //SessionWidget(sessions[0])
