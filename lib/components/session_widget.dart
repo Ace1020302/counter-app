@@ -1,3 +1,4 @@
+import 'package:bordered_text/bordered_text.dart';
 import 'package:counter_app/counter.dart';
 import 'package:flutter/material.dart';
 
@@ -24,7 +25,10 @@ class SessionWidgetState extends State<SessionWidget> {
     List<Counter> counters = session.counters;
     return Scaffold(
       appBar: AppBar(
-        title: Text(session.name),
+        title: BorderedText(
+            strokeColor: Colors.red,
+            strokeWidth: 2,
+            child: Text(session.name, style: TextStyle(color: Colors.white))),
       ),
       body: ListView.builder(
         itemCount: counters.length,

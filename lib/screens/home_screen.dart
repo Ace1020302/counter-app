@@ -1,3 +1,4 @@
+import 'package:bordered_text/bordered_text.dart';
 import 'package:counter_app/components/session_widget.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
@@ -30,11 +31,24 @@ class HomeScreenState extends State<HomeScreen> {
       length: 2,
       child: Scaffold(
         appBar: AppBar(
-          title: Text('Counter app',
-              textAlign: TextAlign.center, style: TextStyle(fontSize: 20)),
+          title: BorderedText(
+            strokeColor: Colors.red,
+            strokeWidth: 3,
+            child: Text('Counter app',
+                textAlign: TextAlign.center,
+                style: TextStyle(fontSize: 25, color: Colors.white)),
+          ),
           bottom: TabBar(tabs: <Widget>[
-            Text('Sessions', style: TextStyle(fontSize: 19)),
-            Text('Archived', style: TextStyle(fontSize: 19))
+            BorderedText(
+                strokeColor: Colors.red,
+                strokeWidth: 3,
+                child: Text('Sessions',
+                    style: TextStyle(fontSize: 19, color: Colors.white))),
+            BorderedText(
+                strokeColor: Colors.red,
+                strokeWidth: 3,
+                child: Text('Archived',
+                    style: TextStyle(fontSize: 19, color: Colors.white)))
           ]),
         ),
         //SessionWidget(sessions[0])
@@ -167,8 +181,16 @@ class HomeScreenState extends State<HomeScreen> {
 
   void addItem() {
     if (sessions == null || sessions.isEmpty) {
-      sessions.add(
-          Session('Session ${1}', [Counter('Player 1'), Counter('Player 2')]));
+      sessions.add(Session('Session ${1}', [
+        Counter('Player 1'),
+        Counter('Player 2'),
+        Counter('Player 3'),
+        Counter('Player 4'),
+        Counter('Player 5'),
+        Counter('Player 6'),
+        Counter('Player 7'),
+        Counter('Player 8')
+      ]));
     } else {
       sessions.add(Session('Session ${sessions.length + 1}',
           [Counter('Player 1'), Counter('Player 2')]));
