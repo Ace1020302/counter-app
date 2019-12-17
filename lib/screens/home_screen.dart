@@ -1,17 +1,12 @@
 import 'package:bordered_text/bordered_text.dart';
-import 'package:counter_app/components/session_widget.dart';
+import 'package:counter_app/screens/session_screen.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_slidable/flutter_slidable.dart';
 
 import '../counter.dart';
 import '../session.dart';
 
-List<Session> sessions = [
-  Session('Session 1', [Counter('Player 1'), Counter('Player 2')]),
-  Session('Session 2', [Counter('Player 1'), Counter('Player 2')]),
-  Session('Session 3', [Counter('Player 1'), Counter('Player 2')]),
-  Session('Session 4', [Counter('Player 1'), Counter('Player 2')])
-];
+List<Session> sessions = [];
 
 List<Session> archivedSessions = [];
 
@@ -33,7 +28,7 @@ class HomeScreenState extends State<HomeScreen> {
         appBar: AppBar(
           title: BorderedText(
             strokeColor: Colors.red,
-            strokeWidth: 3,
+            strokeWidth: 2,
             child: Text('Counter app',
                 textAlign: TextAlign.center,
                 style: TextStyle(fontSize: 25, color: Colors.white)),
@@ -41,17 +36,17 @@ class HomeScreenState extends State<HomeScreen> {
           bottom: TabBar(tabs: <Widget>[
             BorderedText(
                 strokeColor: Colors.red,
-                strokeWidth: 3,
+                strokeWidth: 2,
                 child: Text('Sessions',
                     style: TextStyle(fontSize: 19, color: Colors.white))),
             BorderedText(
                 strokeColor: Colors.red,
-                strokeWidth: 3,
+                strokeWidth: 2,
                 child: Text('Archived',
                     style: TextStyle(fontSize: 19, color: Colors.white)))
           ]),
         ),
-        //SessionWidget(sessions[0])
+        //SessionScreen(sessions[0])
         body: TabBarView(
           children: <Widget>[
             (sessions.length <= 0 || sessions == null)
@@ -76,7 +71,7 @@ class HomeScreenState extends State<HomeScreen> {
                         onTap: () => Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => SessionWidget(
+                            builder: (context) => SessionScreen(
                               sessions[index],
                             ),
                           ),
@@ -130,7 +125,7 @@ class HomeScreenState extends State<HomeScreen> {
                         onTap: () => Navigator.push(
                           context,
                           MaterialPageRoute(
-                            builder: (context) => ArchivedSessionWidget(
+                            builder: (context) => ArchivedSessionScreen(
                               archivedSessions[index],
                             ),
                           ),
@@ -168,7 +163,8 @@ class HomeScreenState extends State<HomeScreen> {
           ],
         ),
         floatingActionButton: FloatingActionButton(
-          child: Icon(Icons.add),
+          backgroundColor: Color(0xFFCDFFD5),
+          child: Icon(Icons.add, color: Colors.red),
           onPressed: () {
             setState(() {
               addItem();

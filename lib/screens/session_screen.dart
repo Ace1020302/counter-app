@@ -4,21 +4,21 @@ import 'package:flutter/material.dart';
 
 import '../session.dart';
 
-class SessionWidget extends StatefulWidget {
+class SessionScreen extends StatefulWidget {
   Session session;
 
-  SessionWidget(this.session);
+  SessionScreen(this.session);
 
   @override
   State<StatefulWidget> createState() {
-    return SessionWidgetState(session);
+    return SessionScreenState(session);
   }
 }
 
-class SessionWidgetState extends State<SessionWidget> {
+class SessionScreenState extends State<SessionScreen> {
   Session session;
 
-  SessionWidgetState(this.session);
+  SessionScreenState(this.session);
 
   @override
   Widget build(BuildContext context) {
@@ -127,21 +127,21 @@ class SessionWidgetState extends State<SessionWidget> {
   }
 }
 
-class ArchivedSessionWidget extends StatefulWidget {
+class ArchivedSessionScreen extends StatefulWidget {
   Session session;
 
-  ArchivedSessionWidget(this.session);
+  ArchivedSessionScreen(this.session);
 
   @override
   State<StatefulWidget> createState() {
-    return ArchivedSessionWidgetState(session);
+    return ArchivedSessionScreenState(session);
   }
 }
 
-class ArchivedSessionWidgetState extends State<ArchivedSessionWidget> {
+class ArchivedSessionScreenState extends State<ArchivedSessionScreen> {
   Session session;
 
-  ArchivedSessionWidgetState(this.session);
+  ArchivedSessionScreenState(this.session);
 
   @override
   Widget build(BuildContext context) {
