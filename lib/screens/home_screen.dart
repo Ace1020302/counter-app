@@ -65,9 +65,6 @@ class HomeScreenState extends State<HomeScreen> {
                           sessions[index].name,
                           textAlign: TextAlign.center,
                         ),
-                        onLongPress: () {
-                          customDialog(context, index);
-                        },
                         onTap: () => Navigator.push(
                           context,
                           MaterialPageRoute(
@@ -77,6 +74,19 @@ class HomeScreenState extends State<HomeScreen> {
                           ),
                         ),
                       ),
+                      actions: <Widget>[
+                        IconSlideAction(
+                          caption: 'Rename',
+                          color: Colors.blue,
+                          icon: Icons.mode_edit,
+                          onTap: () {
+                            customDialog(
+                                context, index, archivedSessions[index].name);
+
+                            print('Renamed ${archivedSessions[index]}');
+                          },
+                        ),
+                      ],
                       secondaryActions: <Widget>[
                         IconSlideAction(
                           caption: 'Archive',
@@ -135,10 +145,21 @@ class HomeScreenState extends State<HomeScreen> {
                           archivedSessions[index].name,
                           textAlign: TextAlign.center,
                         ),
-                        onLongPress: () {
-                          customDialog(context, index);
-                        },
                       ),
+                      actions: <Widget>[
+                        IconSlideAction(
+                          caption: 'Rename',
+                          color: Colors.blue,
+                          icon: Icons.mode_edit,
+                          onTap: () {
+                            customDialog(
+                                context, index, archivedSessions[index].name,
+                                archived: true);
+
+                            print('Renamed ${archivedSessions[index]}');
+                          },
+                        ),
+                      ],
                       secondaryActions: <Widget>[
                         IconSlideAction(
                           caption: 'Delete',
@@ -193,7 +214,8 @@ class HomeScreenState extends State<HomeScreen> {
     }
   }
 
-  void customDialog(BuildContext context, int index) {
+  void customDialog(BuildContext context, int index, String name,
+      {bool archived = false}) {
     String newName;
     showDialog(
       child: Dialog(
@@ -215,9 +237,21 @@ class HomeScreenState extends State<HomeScreen> {
                 RaisedButton(
                   child: Text('Submit'),
                   onPressed: () {
-                    setState(() {
-                      sessions[index].name = newName;
-                    });
+                    if (archived) {
+                      setState(() {
+                        archivedSessions[index].name =
+                            (newName != null || newName.trim() == '')
+                                ? newName.trim()
+                                : name;
+                      });
+                    } else {
+                      setState(() {
+                        sessions[index].name =
+                            (newName != null || newName.trim() == '')
+                                ? newName.trim()
+                                : name;
+                      });
+                    }
 
                     Navigator.of(context).pop();
                   },

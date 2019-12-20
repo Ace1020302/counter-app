@@ -25,6 +25,7 @@ class SessionScreenState extends State<SessionScreen> {
     List<Counter> counters = session.counters;
     return Scaffold(
       appBar: AppBar(
+        iconTheme: IconThemeData(color: Colors.red),
         title: BorderedText(
             strokeColor: Colors.red,
             strokeWidth: 2,
@@ -148,7 +149,11 @@ class ArchivedSessionScreenState extends State<ArchivedSessionScreen> {
     List<Counter> counters = session.counters;
     return Scaffold(
       appBar: AppBar(
-        title: Center(child: Text(session.name)),
+        iconTheme: IconThemeData(color: Colors.red),
+        title: BorderedText(
+            strokeColor: Colors.red,
+            strokeWidth: 2,
+            child: Text(session.name, style: TextStyle(color: Colors.white))),
       ),
       body: ListView.builder(
         itemCount: counters.length,
