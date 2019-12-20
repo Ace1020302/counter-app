@@ -84,12 +84,13 @@ class SessionScreenState extends State<SessionScreen> {
           FloatingActionButton(
             heroTag: '-$value index $index',
             mini: true,
+            backgroundColor: Color(0xFFCDFFD5),
+            child: Icon(Icons.remove, color: Colors.red),
             onPressed: () {
               counter.score -= value;
               setModalState(() {});
               setState(() {});
             },
-            child: Icon(Icons.remove),
           ),
           Container(
             width: 80,
@@ -102,13 +103,14 @@ class SessionScreenState extends State<SessionScreen> {
           ),
           FloatingActionButton(
             heroTag: '$value index $index',
+            backgroundColor: Color(0xFFCDFFD5),
+            child: Icon(Icons.add, color: Colors.red),
             mini: true,
             onPressed: () {
               counter.score += value;
               setModalState(() {});
               setState(() {});
             },
-            child: Icon(Icons.add),
           ),
         ],
       ),

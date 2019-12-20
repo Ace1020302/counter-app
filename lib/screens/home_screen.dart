@@ -80,8 +80,7 @@ class HomeScreenState extends State<HomeScreen> {
                           color: Colors.blue,
                           icon: Icons.mode_edit,
                           onTap: () {
-                            customDialog(
-                                context, index, archivedSessions[index].name);
+                            customDialog(context, index, sessions[index].name);
 
                             print('Renamed ${archivedSessions[index]}');
                           },
@@ -209,8 +208,16 @@ class HomeScreenState extends State<HomeScreen> {
         Counter('Player 8')
       ]));
     } else {
-      sessions.add(Session('Session ${sessions.length + 1}',
-          [Counter('Player 1'), Counter('Player 2')]));
+      sessions.add(Session('Session ${sessions.length + 1}', [
+        Counter('Player 1'),
+        Counter('Player 2'),
+        Counter('Player 3'),
+        Counter('Player 4'),
+        Counter('Player 5'),
+        Counter('Player 6'),
+        Counter('Player 7'),
+        Counter('Player 8')
+      ]));
     }
   }
 
@@ -237,7 +244,7 @@ class HomeScreenState extends State<HomeScreen> {
                 RaisedButton(
                   child: Text('Submit'),
                   onPressed: () {
-                    if (archived) {
+                    if (archived == true) {
                       setState(() {
                         archivedSessions[index].name =
                             (newName != null || newName.trim() == '')
